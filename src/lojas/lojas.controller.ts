@@ -1,32 +1,37 @@
 import { Get, Param, Controller, Body, Post, Put, Delete } from "@nestjs/common";
+import { Loja } from "./lojas.model"
+import { LojasService } from "./lojas.service";
 
 @Controller('lojas')
 export class LojasController {
+    constructor(private lojasService: LojasService) {
+
+    }
     
     @Get()
-    readLojas(): string {
-        return "Rota Get pra todas as lojas"
+    async readLojas(): Promise<Loja[]> {
+        return this.lojasService.readLojas();
     }
 
     @Get(':id')
-    buscaPorId(@Param() params): string {
-        return `Rota get pra uma loja com o ID ${params.id}`
+    async buscaPorId(@Param() params): Promise<Loja> {
+        return this.lojasService.buscaPorId(params.id);
     }
 
     @Post()
-    criarLoja(@Body() loja) : string {
-        console.log(loja)
-        return 'Loja criada'
+    async criarLoja(@Body() loja : Loja) {
+        // console.log(loja)
+        this.lojasService.criarLoja
     }
 
     @Put()
-    updateLoja(@Body() loja): string {
-        return 'Rota update criada'
+    async updateLoja(@Body() loja: Loja): Promise<Loja> {
+        return this.lojasService.updateLoja(loja);
     }
 
     @Delete(':id')
-    deletaLoja(@Param() params) : string {
-        return 'Rota delete criada'
+    async deletaLoja(@Param() params) {
+        this.lojasService.apagar(params.id)
     }
 
 }
