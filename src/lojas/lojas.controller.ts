@@ -25,7 +25,7 @@ export class LojasController {
     }
 
     @Put()
-    async updateLoja(@Body() loja: Loja): Promise<Loja> {
+    async updateLoja(@Body() loja: Loja): Promise<[number, Loja[]]> {
         return this.lojasService.updateLoja(loja);
     }
 

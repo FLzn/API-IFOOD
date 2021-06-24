@@ -1,32 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { Loja } from './lojas.model'
 
 @Injectable()
 export class LojasService {
-    lojas: Loja[] = [
-        new Loja("McDonald's", "Líder no segmento fast-food", true, "https://braziljournal.s3.amazonaws.com/covers/fe5465ca-0285-fabd-82aa-d9cbb9ceb18d.jpg?v=1541712233", 5.0),
-        new Loja("Burger King", "Líder no segmento fast-food", true, "https://braziljournal.s3.amazonaws.com/covers/fe5465ca-0285-fabd-82aa-d9cbb9ceb18d.jpg?v=1541712233", 5.0),
-        new Loja("Madero", "Líder no segmento fast-food", true, "https://braziljournal.s3.amazonaws.com/covers/fe5465ca-0285-fabd-82aa-d9cbb9ceb18d.jpg?v=1541712233", 5.0)
-    ];
 
-    readLojas(): Loja[] {
-        return this.lojas;
+    constructor(
+        @InjectModel(Loja)
+        private lojaModel: typeof Loja
+    ) {}
+
+    async readLojas(): Promise<Loja[]> {
+        return this.lojaModel.findAll();
     }
 
-    buscaPorId(id:number): Loja {
-        return this.lojas[`${id}`]
+    async buscaPorId(id:number): Promise<Loja> {
+        return this.lojaModel.findByPk(id);
     }
 
-    criarLoja(loja : Loja) {
-        // console.log(loja)
-        this.lojas.push(loja)
+    async criarLoja(loja : Loja) {
+        this.lojaModel.create(loja)
     }
 
-    updateLoja(loja: Loja): Loja {
-        return loja;
+    async updateLoja(loja: Loja): Promise<[number, Loja[]]> {
+        return this.lojaModel.update(loja, {
+            where: {
+                id: loja.id
+            }
+        })
     }
 
-    apagar(id: number){
-        this.lojas.pop()
+    async apagar(id: number){
+        // const loja : Loja = await this.buscaPorId(id)
+        // this.lojaModel.update(loja, {
+            
+        // })
     }
 }
