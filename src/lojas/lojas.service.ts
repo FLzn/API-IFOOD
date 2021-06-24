@@ -12,7 +12,11 @@ export class LojasService {
     ) {}
 
     async readLojas(): Promise<Loja[]> {
-        return this.lojaModel.findAll();
+        return this.lojaModel.findAll({
+            order: [
+                ['id', 'ASC']
+            ]
+        });
     }
 
     async buscaPorId(id:number): Promise<Loja> {
