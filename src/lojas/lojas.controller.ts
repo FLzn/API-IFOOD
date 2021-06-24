@@ -21,7 +21,7 @@ export class LojasController {
     @Post()
     async criarLoja(@Body() loja : Loja) {
         // console.log(loja)
-        this.lojasService.criarLoja
+        this.lojasService.criarLoja(loja)
     }
 
     @Put()
@@ -31,7 +31,7 @@ export class LojasController {
 
     @Delete(':id')
     async deletaLoja(@Param() params) {
-        this.lojasService.apagar(params.id)
+        this.lojasService.deletaLoja(params.id)
     }
 
 }

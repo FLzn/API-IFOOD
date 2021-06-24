@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Loja } from './lojas.model'
+import moment from 'moment'
 
 @Injectable()
 export class LojasService {
@@ -30,10 +31,8 @@ export class LojasService {
         })
     }
 
-    async apagar(id: number){
-        // const loja : Loja = await this.buscaPorId(id)
-        // this.lojaModel.update(loja, {
-            
-        // })
+    async deletaLoja(id: number){
+        const loja : Loja = await this.buscaPorId(id)
+        loja.destroy()
     }
 }

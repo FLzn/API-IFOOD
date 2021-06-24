@@ -38,7 +38,7 @@ export class Loja extends Model<Loja> {
 
     @Column({
         type: DataType.DATE,
-        allowNull: false
+        allowNull: true
     })
     deletedAt: Date;
 
