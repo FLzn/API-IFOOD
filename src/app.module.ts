@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { LojasController } from './lojas/lojas.controller';
 import { Loja } from './lojas/lojas.model';
 import { LojasService } from './lojas/lojas.service';
+import { ProdutosController } from './produtos/produtos.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { LojasService } from './lojas/lojas.service';
     }),
     SequelizeModule.forFeature([Loja])
   ],
-  controllers: [AppController, LojasController],
+  controllers: [AppController, LojasController, ProdutosController],
   providers: [AppService, LojasService],
 })
 export class AppModule {}
