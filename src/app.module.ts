@@ -6,6 +6,8 @@ import { LojasController } from './lojas/lojas.controller';
 import { Loja } from './lojas/lojas.model';
 import { LojasService } from './lojas/lojas.service';
 import { ProdutosController } from './produtos/produtos.controller';
+import { Produto } from './produtos/produtos.model';
+import { ProdutosService } from './produtos/produtos.service';
 
 @Module({
   imports: [
@@ -19,9 +21,9 @@ import { ProdutosController } from './produtos/produtos.controller';
       autoLoadModels: true,
       synchronize: true,
     }),
-    SequelizeModule.forFeature([Loja])
+    SequelizeModule.forFeature([Loja, Produto])
   ],
   controllers: [AppController, LojasController, ProdutosController],
-  providers: [AppService, LojasService],
+  providers: [AppService, LojasService, ProdutosService],
 })
 export class AppModule {}

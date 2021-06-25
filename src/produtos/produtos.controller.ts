@@ -1,27 +1,27 @@
 import { Get, Param, Controller, Post, Body, Put, Delete } from "@nestjs/common";
+import { Produto } from "./produtos.model";
+import { ProdutosService } from "./produtos.service";
 
 @Controller('produtos')
 export class ProdutosController {
 
-    @Get()
-    getProdutos() : string {
-        return "Rota GET todos os produtos"
+    constructor(private produtosService: ProdutosService){
+
     }
 
     @Get(':id')
-    getProdutoId(@Param() params): string {
-        return `Rota GET produto por id ${params.id}`
+    async getProdutoId(@Param() params): Promise<Produto> {
+        return this.produtosService.getProdutoID(params.id)
     }
 
     @Post()
-    criaProduto(@Body() produto): string {
-        console.log(produto)
-        return "Rota POST produtos"
+    async criaProduto(@Body() produto) {
+        this.produtosService.criaProduto(produto)
     }
 
     @Put()
-    updateProduto(@Body() produto): string {
-        return produto;
+    async updateProduto(@Body() produto): Promise<[number, Produto[]]> {
+        return this.produtosService.updateProduto(produto)
     }
 
     @Delete(':id')
